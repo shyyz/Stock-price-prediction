@@ -1,0 +1,6 @@
+date,predicted_price,model
+2025-06-27,9.920999999999998,Random Forest
+2025-06-28,9.802799999999992,Random Forest
+2025-06-29,9.7335,Random Forest
+2025-06-30,9.6427,Random Forest
+2025-07-01,9.580300000000003,Random Forest

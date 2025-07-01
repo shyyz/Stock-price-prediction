@@ -1,0 +1,6 @@
+date,predicted_price,model
+2025-06-27,41.82559,XGBoost
+2025-06-28,41.65977,XGBoost
+2025-06-29,41.66854,XGBoost
+2025-06-30,41.620518,XGBoost
+2025-07-01,41.42288,XGBoost
