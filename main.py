@@ -32,7 +32,7 @@ def show_prediction_results(stock_code):
 
     # 随机森林结果
     rf_csv_path = f"stock_data/{stock_code}_随机森林预测结果.csv"
-    rf_img_path = f"stock_data/kline_plots/{stock_code}.png"
+    rf_img_path = f"kline_plots/{stock_code}.png"
 
     # 展示XGBoost
     if os.path.exists(xgb_csv_path) and os.path.exists(xgb_img_path):
