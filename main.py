@@ -29,6 +29,7 @@ def show_prediction_results(stock_code):
     # XGBoost结果
     xgb_csv_path = f"stock_data/{stock_code}_XGBoost预测结果.csv"
     xgb_img_path = f"stock_data/{stock_code}_预测图表.png"
+
     # 随机森林结果
     rf_csv_path = f"stock_data/{stock_code}_随机森林预测结果.csv"
     rf_img_path = f"stock_data/kline_plots/{stock_code}.png"
@@ -196,6 +197,32 @@ def evaluation_page():
             st.bar_chart(xgb_eval['residual'])
         else:
             st.warning(f"未找到XGBoost评估文件: {xgb_eval_path}")
+
+    # 随机森林评估
+    with col2:
+        if os.path.exists(rf_eval_path):
+            rf_eval = pd.read_csv(rf_eval_path)
+            train_rmse = rf_eval[rf_eval['set_type'] == 'train']['residual'].pow(2).mean() ** 0.5
+            test_rmse = rf_eval[rf_eval['set_type'] == 'test']['residual'].pow(2).mean() ** 0.5
+            # 新增MSE和R2
+            train_mse = rf_eval[rf_eval['set_type'] == 'train']['mse'].iloc[0] if 'mse' in rf_eval.columns else None
+            test_mse = rf_eval[rf_eval['set_type'] == 'test']['mse'].iloc[0] if 'mse' in rf_eval.columns else None
+            train_r2 = rf_eval[rf_eval['set_type'] == 'train']['r2'].iloc[0] if 'r2' in rf_eval.columns else None
+            test_r2 = rf_eval[rf_eval['set_type'] == 'test']['r2'].iloc[0] if 'r2' in rf_eval.columns else None
+            st.metric("训练集RMSE", f"{train_rmse:.4f}")
+            st.metric("测试集RMSE", f"{test_rmse:.4f}")
+            if train_mse is not None and test_mse is not None:
+                st.metric("训练集MSE", f"{train_mse:.4f}")
+                st.metric("测试集MSE", f"{test_mse:.4f}")
+            if train_r2 is not None and test_r2 is not None:
+                st.metric("训练集R²", f"{train_r2:.4f}")
+                st.metric("测试集R²", f"{test_r2:.4f}")
+            st.markdown("**残差分布图**")
+            st.line_chart(rf_eval['residual'])
+            st.markdown("**残差直方图**")
+            st.bar_chart(rf_eval['residual'])
+        else:
+            st.warning(f"未找到随机森林评估文件: {rf_eval_path}")
 
 
 def main():
