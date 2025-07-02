@@ -18,7 +18,7 @@ def fetch_hs300_components(start_date='20250301', end_date='20250630'):
 
 
 # 获取成分股的历史日线行情数据
-def fetch_stock_data(ts_code, start_date='20200101', end_date='20250627'):
+def fetch_stock_data(ts_code, start_date='20200101', end_date='20250701'):
     try:
         df = pro.daily(ts_code=ts_code, start_date=start_date, end_date=end_date)
         print(f"{ts_code} 的行情数据获取成功！")
@@ -29,7 +29,7 @@ def fetch_stock_data(ts_code, start_date='20200101', end_date='20250627'):
 
 
 # 获取成分股的财务数据  利润表、资产负债表、现金流量表
-def fetch_stock_financial_data(ts_code, start_date='20200101', end_date='20250627'):
+def fetch_stock_financial_data(ts_code, start_date='20200101', end_date='20250701'):
     try:
         df_income = pro.income(ts_code=ts_code, start_date=start_date, end_date=end_date)
         df_balance = pro.balancesheet(ts_code=ts_code, start_date=start_date, end_date=end_date)
@@ -73,7 +73,6 @@ def get_hs300_stocks():
     return []
 
 
-# 主函数
 if __name__ == "__main__":
     # 获取沪深300成分股权重列表
     components = fetch_hs300_components()
